@@ -41,9 +41,8 @@ public class PurchaseListActivity extends BaseNavigationActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getTitle());
+            getSupportActionBar().setTitle("My Purchases");
         }
 
         if (findViewById(R.id.purchase_detail_container) != null) {

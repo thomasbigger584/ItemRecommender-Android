@@ -10,12 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.login.LoginActivity;
 import com.twb.itemrecommender.mypurchases.PurchaseListActivity;
 import com.twb.itemrecommender.product.ProductListActivity;
+import com.twb.itemrecommender.recommendation.RecommendationActivity;
 
 public abstract class BaseNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -85,7 +85,7 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_recommendations: {
-                Toast.makeText(this, "Recommendations", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, RecommendationActivity.class);
                 break;
             }
             case R.id.nav_purchases: {
@@ -93,13 +93,10 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
                 break;
             }
         }
-
-        if (intent != null) {
-            startActivity(intent);
-        }
-
+        startActivity(intent);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        finish();
         return true;
     }
 }

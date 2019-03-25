@@ -21,4 +21,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_product_list">Products</string>
     <string name="title_product_detail">Product Detail</string>
+    <string name="title_purchase_list">Purchases</string>
+    <string name="title_purchase_detail">Purchase Detail</string>
 </resources>

@@ -10,9 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".mypurchases.PurchaseListActivity"
+            android:label="@string/title_purchase_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".mypurchases.PurchaseDetailActivity"
+            android:label="@string/title_purchase_detail"
+            android:parentActivityName=".mypurchases.PurchaseListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.twb.itemrecommender.mypurchases.PurchaseListActivity" />
+        </activity>
+        <activity
             android:name=".product.ProductListActivity"
             android:label="@string/title_product_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".product.ProductDetailActivity"
             android:label="@string/title_product_detail"

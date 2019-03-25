@@ -2,9 +2,6 @@ package com.twb.itemrecommender.navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +14,8 @@ import android.widget.Toast;
 
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.login.LoginActivity;
+import com.twb.itemrecommender.mypurchases.PurchaseListActivity;
+import com.twb.itemrecommender.product.ProductListActivity;
 
 public abstract class BaseNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -79,10 +78,10 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        Intent intent = null;
         switch (item.getItemId()) {
             case R.id.nav_products: {
-                Toast.makeText(this, "Products", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, ProductListActivity.class);
                 break;
             }
             case R.id.nav_recommendations: {
@@ -90,10 +89,15 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_purchases: {
-                Toast.makeText(this, "Purchases", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, PurchaseListActivity.class);
                 break;
             }
         }
+
+        if (intent != null) {
+            startActivity(intent);
+        }
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

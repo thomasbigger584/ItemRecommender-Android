@@ -1,0 +1,10 @@
+{
+  "AppSyncApiName": "ItemRecommender",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authcognito5f4c1469",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

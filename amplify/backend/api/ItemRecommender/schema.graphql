@@ -1,9 +1,0 @@
-type Product @model {
-    name: String!
-    description: String
-    price: Float
-    rating: Int
-    latitude: Float
-    longitude: Float
-    category: String
-}

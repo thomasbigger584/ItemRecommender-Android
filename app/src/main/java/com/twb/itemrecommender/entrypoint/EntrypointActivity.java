@@ -1,9 +1,10 @@
-package com.twb.itemrecommender;
+package com.twb.itemrecommender.entrypoint;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.product.ProductListActivity;
 
 public class EntrypointActivity extends AppCompatActivity {

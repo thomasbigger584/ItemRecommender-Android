@@ -16,18 +16,32 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
     private final List<Attraction> items = new ArrayList<>();
-    private final boolean mTwoPane;
+    private ProductClickListener postClickListener;
 
-    public ProductListAdapter(boolean twoPane) {
-        this.mTwoPane = twoPane;
+    ProductListAdapter(ProductClickListener postClickListener) {
+        this.postClickListener = postClickListener;
     }
 
     @NonNull
     @Override
     public ProductListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_list_content, parent, false);
-        return new ProductListAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_content, parent, false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        viewHolder.itemView.setOnClickListener(v -> {
+            int position = viewHolder.getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                postClickListener.onClick(getItem(position));
+            }
+        });
+        return viewHolder;
+    }
+
+    int addItems(List<Attraction> newItems) {
+        int itemsCount = items.size();
+        items.addAll(newItems);
+        int newItemsCount = items.size();
+        notifyItemRangeInserted(itemsCount, newItemsCount);
+        return newItemsCount;
     }
 
     @Override
@@ -35,9 +49,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         Attraction attraction = getItem(position);
         holder.mIdView.setText(String.valueOf(attraction.getId()));
         holder.mContentView.setText(attraction.getName());
-
         holder.itemView.setTag(attraction);
-//        holder.itemView.setOnClickListener(mOnClickListener);
     }
 
     @Override
@@ -58,17 +70,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return items.get(position);
     }
 
-    public int addItems(List<Attraction> newItems) {
-        int itemsCount = items.size();
-        items.addAll(newItems);
-        int newItemsCount = items.size();
-        notifyItemRangeInserted(itemsCount, newItemsCount);
-        return newItemsCount;
-    }
-
-    public void clear() {
+    void clear() {
         items.clear();
         notifyDataSetChanged();
+    }
+
+    public interface ProductClickListener {
+        void onClick(Attraction attraction);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

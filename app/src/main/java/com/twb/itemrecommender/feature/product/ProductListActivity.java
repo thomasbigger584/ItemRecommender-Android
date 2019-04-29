@@ -1,6 +1,8 @@
 package com.twb.itemrecommender.feature.product;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,11 +41,9 @@ public class ProductListActivity extends BaseNavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(getTitle());
+            getSupportActionBar().setTitle("Train Attractions");
         }
-
         if (findViewById(R.id.product_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -51,8 +51,22 @@ public class ProductListActivity extends BaseNavigationActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
-
-        adapter = new ProductListAdapter(mTwoPane);
+        adapter = new ProductListAdapter(attraction -> {
+            if (mTwoPane) {
+                Bundle arguments = new Bundle();
+                arguments.putString(ProductDetailFragment.ARG_ITEM_ID, String.valueOf(attraction.getId()));
+                ProductDetailFragment fragment = new ProductDetailFragment();
+                fragment.setArguments(arguments);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.product_detail_container, fragment)
+                        .commit();
+            } else {
+                Context context = ProductListActivity.this;
+                Intent intent = new Intent(context, ProductDetailActivity.class);
+                intent.putExtra(ProductDetailFragment.ARG_ITEM_ID, String.valueOf(attraction.getId()));
+                context.startActivity(intent);
+            }
+        });
         adapter.setHasStableIds(true);
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
@@ -67,6 +81,7 @@ public class ProductListActivity extends BaseNavigationActivity {
                 stopSwipeRefresh();
             } else {
                 int itemSize = adapter.addItems(attractions);
+//                do something if there is no attractions
                 stopSwipeRefresh();
             }
         });

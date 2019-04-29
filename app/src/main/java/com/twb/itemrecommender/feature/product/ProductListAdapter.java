@@ -10,15 +10,15 @@ import android.widget.TextView;
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.data.domain.Attraction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
-    private final List<Attraction> attractionList;
+    private final List<Attraction> attractionList = new ArrayList<>();
     private final boolean mTwoPane;
 
-    public ProductListAdapter(List<Attraction> attractionList, boolean twoPane) {
-        this.attractionList = attractionList;
+    public ProductListAdapter(boolean twoPane) {
         this.mTwoPane = twoPane;
     }
 

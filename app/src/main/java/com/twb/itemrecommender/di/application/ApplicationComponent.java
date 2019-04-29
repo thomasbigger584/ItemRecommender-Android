@@ -1,6 +1,7 @@
 package com.twb.itemrecommender.di.application;
 
 import com.google.gson.Gson;
+import com.twb.itemrecommender.feature.product.ProductListViewModel;
 
 import dagger.Component;
 
@@ -18,7 +19,7 @@ public interface ApplicationComponent {
     /*
      * ViewModels
      */
-//    void inject(EntryPointViewModel entryPointViewModel);
+    void inject(ProductListViewModel productListViewModel);
 
     /*
      * AsyncTasks

@@ -1,14 +1,13 @@
 package com.twb.itemrecommender.feature.product;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.feature.navigation.BaseNavigationActivity;
 
-import java.util.ArrayList;
 
 /**
  * An activity representing a list of Products. This activity
@@ -25,6 +24,10 @@ public class ProductListActivity extends BaseNavigationActivity {
      * device.
      */
     private boolean mTwoPane;
+
+    private ProductListAdapter adapter;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected int getContentView() {
@@ -47,11 +50,19 @@ public class ProductListActivity extends BaseNavigationActivity {
             mTwoPane = true;
         }
 
-        View recyclerView = findViewById(R.id.product_list);
-        setupRecyclerView((RecyclerView) recyclerView);
+        adapter = new ProductListAdapter(mTwoPane);
+        adapter.setHasStableIds(true);
+
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this::startInitialPage);
+        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent));
+
+        RecyclerView recyclerView = findViewById(R.id.product_list);
+
+        recyclerView.setAdapter(adapter);
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new ProductListAdapter(new ArrayList<>(), mTwoPane));
+    private void startInitialPage() {
+
     }
 }

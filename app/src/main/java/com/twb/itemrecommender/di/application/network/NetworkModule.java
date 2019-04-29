@@ -30,7 +30,7 @@ import timber.log.Timber;
 @Module(includes = {ApplicationContextModule.class})
 public class NetworkModule {
 
-    private static final String BASE_URL = "http://localhost:8080/";
+    private static final String BASE_URL = "http://192.168.0.101:8080/";
     private static final String PREFIX = "api/";
 
     private static final String OKHTTP_CACHE_FILE = "okhttp_cache";

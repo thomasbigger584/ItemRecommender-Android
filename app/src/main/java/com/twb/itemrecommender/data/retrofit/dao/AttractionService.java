@@ -11,6 +11,6 @@ import retrofit2.http.QueryMap;
 
 public interface AttractionService {
 
-    @GET("api/ext-attraction")
+    @GET("ext-attraction")
     Call<List<Attraction>> getAll(@QueryMap(encoded = true) Map<String, Integer> queryParamsMap);
 }

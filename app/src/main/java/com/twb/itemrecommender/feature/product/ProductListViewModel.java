@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 public final class ProductListViewModel extends PaginationViewModel<Attraction> {
 
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 15;
 
     @Inject
     AttractionRepository attractionRepository;

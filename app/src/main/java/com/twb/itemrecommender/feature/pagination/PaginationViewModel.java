@@ -159,7 +159,7 @@ public abstract class PaginationViewModel<ItemType> extends AndroidViewModel {
             /*
              * retrieve the pagination items from the subclass
              */
-            DataWrapper<List<ItemType>> itemDataWrapper = null;
+            DataWrapper<List<ItemType>> itemDataWrapper = new DataWrapper<>();
             if (viewModel.isConnected) {
                 itemDataWrapper = getNetworkPaginatedItems();
             }

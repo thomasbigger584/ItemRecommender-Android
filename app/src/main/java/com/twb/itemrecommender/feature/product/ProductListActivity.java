@@ -1,5 +1,6 @@
 package com.twb.itemrecommender.feature.product;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,6 +29,7 @@ public class ProductListActivity extends BaseNavigationActivity {
     private ProductListAdapter adapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ProductListViewModel productListViewModel;
 
     @Override
     protected int getContentView() {
@@ -57,12 +59,44 @@ public class ProductListActivity extends BaseNavigationActivity {
         swipeRefreshLayout.setOnRefreshListener(this::startInitialPage);
         swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent));
 
-        RecyclerView recyclerView = findViewById(R.id.product_list);
+        productListViewModel = ViewModelProviders.of(this).
+                get(ProductListViewModel.class);
 
+        productListViewModel.itemLiveData.observe(this, attractions -> {
+            if (attractions == null) {
+                stopSwipeRefresh();
+            } else {
+                int itemSize = adapter.addItems(attractions);
+                stopSwipeRefresh();
+            }
+        });
+        RecyclerView recyclerView = findViewById(R.id.product_list);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(productListViewModel.scrollListener);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startInitialPage();
     }
 
     private void startInitialPage() {
+        stopSwipeRefresh();
+        adapter.clear();
+        startSwipeRefresh();
+        productListViewModel.startInitialPage();
+    }
 
+    private void startSwipeRefresh() {
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+    }
+
+    private void stopSwipeRefresh() {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

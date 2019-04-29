@@ -3,17 +3,7 @@ package com.twb.itemrecommender.data.retrofit.api;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ApiError {
-
-    @SerializedName("cause")
-    @Expose
-    private Object cause;
-    @SerializedName("stackTrace")
-    @Expose
-    private List<StackTrace> stackTrace = new ArrayList<>();
     @SerializedName("type")
     @Expose
     private String type;
@@ -22,38 +12,16 @@ public class ApiError {
     private String title;
     @SerializedName("status")
     @Expose
-    private String status;
+    private Long status;
     @SerializedName("detail")
     @Expose
     private String detail;
-    @SerializedName("instance")
+    @SerializedName("path")
     @Expose
-    private Object instance;
-    @SerializedName("parameters")
-    @Expose
-    private Parameters parameters;
+    private String path;
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("localizedMessage")
-    @Expose
-    private String localizedMessage;
-
-    public Object getCause() {
-        return cause;
-    }
-
-    public void setCause(Object cause) {
-        this.cause = cause;
-    }
-
-    public List<StackTrace> getStackTrace() {
-        return stackTrace;
-    }
-
-    public void setStackTrace(List<StackTrace> stackTrace) {
-        this.stackTrace = stackTrace;
-    }
 
     public String getType() {
         return type;
@@ -71,11 +39,11 @@ public class ApiError {
         this.title = title;
     }
 
-    public String getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 
@@ -87,20 +55,12 @@ public class ApiError {
         this.detail = detail;
     }
 
-    public Object getInstance() {
-        return instance;
+    public String getPath() {
+        return path;
     }
 
-    public void setInstance(Object instance) {
-        this.instance = instance;
-    }
-
-    public Parameters getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(Parameters parameters) {
-        this.parameters = parameters;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getMessage() {
@@ -109,13 +69,5 @@ public class ApiError {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getLocalizedMessage() {
-        return localizedMessage;
-    }
-
-    public void setLocalizedMessage(String localizedMessage) {
-        this.localizedMessage = localizedMessage;
     }
 }

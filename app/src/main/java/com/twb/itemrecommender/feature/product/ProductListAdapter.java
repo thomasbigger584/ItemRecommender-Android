@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
-    private final List<Attraction> attractionList = new ArrayList<>();
+    private final List<Attraction> items = new ArrayList<>();
     private final boolean mTwoPane;
 
     public ProductListAdapter(boolean twoPane) {
@@ -32,16 +32,43 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ProductListAdapter.ViewHolder holder, int position) {
-        holder.mIdView.setText(String.valueOf(attractionList.get(position).getId()));
-        holder.mContentView.setText(attractionList.get(position).getName());
+        Attraction attraction = getItem(position);
+        holder.mIdView.setText(String.valueOf(attraction.getId()));
+        holder.mContentView.setText(attraction.getName());
 
-        holder.itemView.setTag(attractionList.get(position));
+        holder.itemView.setTag(attraction);
 //        holder.itemView.setOnClickListener(mOnClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return attractionList.size();
+        return items.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        Attraction attraction = getItem(position);
+        if (attraction == null) {
+            return super.getItemId(position);
+        }
+        return attraction.getId();
+    }
+
+    private Attraction getItem(int position) {
+        return items.get(position);
+    }
+
+    public int addItems(List<Attraction> newItems) {
+        int itemsCount = items.size();
+        items.addAll(newItems);
+        int newItemsCount = items.size();
+        notifyItemRangeInserted(itemsCount, newItemsCount);
+        return newItemsCount;
+    }
+
+    public void clear() {
+        items.clear();
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

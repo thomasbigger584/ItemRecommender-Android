@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.data.domain.Attraction;
 
@@ -51,14 +53,16 @@ public class ProductDetailFragment extends Fragment {
 
             mItem = getArguments().getParcelable(ARG_ITEM);
 
-
-            Log.d("ProductDetailFragment", "onCreate: " + mItem);
-
             Activity activity = this.getActivity();
             assert activity != null;
             CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.getName());
+                ImageView toolbarImageView = appBarLayout.findViewById(R.id.toolbar_image_view);
+                Glide.with(this).
+                        load(mItem.getThumbnailUrl()).
+                        apply(RequestOptions.centerCropTransform()).
+                        into(toolbarImageView);
             }
         }
     }

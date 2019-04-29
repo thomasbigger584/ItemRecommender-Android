@@ -88,11 +88,7 @@ public class ProductListActivity extends BaseNavigationActivity {
         RecyclerView recyclerView = findViewById(R.id.product_list);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(productListViewModel.scrollListener);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         startInitialPage();
     }
 

@@ -1,9 +1,12 @@
 package com.twb.itemrecommender.data.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Attraction {
+public class Attraction implements Parcelable {
     @SerializedName("id")
     @Expose
     private Long id;
@@ -278,5 +281,113 @@ public class Attraction {
 
     public void setFacilities(Boolean facilities) {
         this.facilities = facilities;
+    }
+
+    public static final Parcelable.Creator<Attraction> CREATOR = new Parcelable.Creator<Attraction>() {
+        @Override
+        public Attraction createFromParcel(Parcel source) {
+            return new Attraction(source);
+        }
+
+        @Override
+        public Attraction[] newArray(int size) {
+            return new Attraction[size];
+        }
+    };
+
+    public Attraction() {
+    }
+
+    protected Attraction(Parcel in) {
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
+        this.sygicTravelId = in.readString();
+        this.rating = (Double) in.readValue(Double.class.getClassLoader());
+        this.latitude = (Double) in.readValue(Double.class.getClassLoader());
+        this.longitude = (Double) in.readValue(Double.class.getClassLoader());
+        this.name = in.readString();
+        this.marker = in.readString();
+        this.perex = in.readString();
+        this.thumbnailUrl = in.readString();
+        this.categories = in.readString();
+        this.dsSummary = in.readString();
+        this.dsIcon = in.readString();
+        this.dsApparentTemperatureHigh = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsApparentTemperatureLow = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsDewPoint = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsHumidity = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsPressure = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsWindSpeed = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsWindGust = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsCloudCover = (Double) in.readValue(Double.class.getClassLoader());
+        this.dsVisibility = (Long) in.readValue(Long.class.getClassLoader());
+        this.adultPrice = (Double) in.readValue(Double.class.getClassLoader());
+        this.childPrice = (Double) in.readValue(Double.class.getClassLoader());
+        this.accessible = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.facilities = (Boolean) in.readValue(Boolean.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.sygicTravelId);
+        dest.writeValue(this.rating);
+        dest.writeValue(this.latitude);
+        dest.writeValue(this.longitude);
+        dest.writeString(this.name);
+        dest.writeString(this.marker);
+        dest.writeString(this.perex);
+        dest.writeString(this.thumbnailUrl);
+        dest.writeString(this.categories);
+        dest.writeString(this.dsSummary);
+        dest.writeString(this.dsIcon);
+        dest.writeValue(this.dsApparentTemperatureHigh);
+        dest.writeValue(this.dsApparentTemperatureLow);
+        dest.writeValue(this.dsDewPoint);
+        dest.writeValue(this.dsHumidity);
+        dest.writeValue(this.dsPressure);
+        dest.writeValue(this.dsWindSpeed);
+        dest.writeValue(this.dsWindGust);
+        dest.writeValue(this.dsCloudCover);
+        dest.writeValue(this.dsVisibility);
+        dest.writeValue(this.adultPrice);
+        dest.writeValue(this.childPrice);
+        dest.writeValue(this.accessible);
+        dest.writeValue(this.facilities);
+    }
+
+    @Override
+    public String toString() {
+        return "Attraction{" +
+                "id=" + id +
+                ", sygicTravelId='" + sygicTravelId + '\'' +
+                ", rating=" + rating +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", name='" + name + '\'' +
+                ", marker='" + marker + '\'' +
+                ", perex='" + perex + '\'' +
+                ", thumbnailUrl='" + thumbnailUrl + '\'' +
+                ", categories='" + categories + '\'' +
+                ", dsSummary='" + dsSummary + '\'' +
+                ", dsIcon='" + dsIcon + '\'' +
+                ", dsApparentTemperatureHigh=" + dsApparentTemperatureHigh +
+                ", dsApparentTemperatureLow=" + dsApparentTemperatureLow +
+                ", dsDewPoint=" + dsDewPoint +
+                ", dsHumidity=" + dsHumidity +
+                ", dsPressure=" + dsPressure +
+                ", dsWindSpeed=" + dsWindSpeed +
+                ", dsWindGust=" + dsWindGust +
+                ", dsCloudCover=" + dsCloudCover +
+                ", dsVisibility=" + dsVisibility +
+                ", adultPrice=" + adultPrice +
+                ", childPrice=" + childPrice +
+                ", accessible=" + accessible +
+                ", facilities=" + facilities +
+                '}';
     }
 }

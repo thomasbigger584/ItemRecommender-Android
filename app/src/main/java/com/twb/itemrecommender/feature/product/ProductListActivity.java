@@ -54,7 +54,7 @@ public class ProductListActivity extends BaseNavigationActivity {
         adapter = new ProductListAdapter(attraction -> {
             if (mTwoPane) {
                 Bundle arguments = new Bundle();
-                arguments.putString(ProductDetailFragment.ARG_ITEM_ID, String.valueOf(attraction.getId()));
+                arguments.putParcelable(ProductDetailFragment.ARG_ITEM, attraction);
                 ProductDetailFragment fragment = new ProductDetailFragment();
                 fragment.setArguments(arguments);
                 getSupportFragmentManager().beginTransaction()
@@ -63,7 +63,7 @@ public class ProductListActivity extends BaseNavigationActivity {
             } else {
                 Context context = ProductListActivity.this;
                 Intent intent = new Intent(context, ProductDetailActivity.class);
-                intent.putExtra(ProductDetailFragment.ARG_ITEM_ID, String.valueOf(attraction.getId()));
+                intent.putExtra(ProductDetailFragment.ARG_ITEM, attraction);
                 context.startActivity(intent);
             }
         });

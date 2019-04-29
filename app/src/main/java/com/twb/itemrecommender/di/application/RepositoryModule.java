@@ -1,8 +1,8 @@
 package com.twb.itemrecommender.di.application;
 
 
-import com.twb.itemrecommender.data.PostRepository;
-import com.twb.itemrecommender.data.retrofit.PostRetrofitController;
+import com.twb.itemrecommender.data.AttractionRepository;
+import com.twb.itemrecommender.data.retrofit.AttractionRetrofitController;
 import com.twb.itemrecommender.di.application.network.RetrofitControllerModule;
 
 import dagger.Module;
@@ -15,7 +15,7 @@ public class RepositoryModule {
 
     @Provides
     @ApplicationScope
-    public PostRepository postRepository(PostRetrofitController postRetrofitController) {
-        return new PostRepository(postRetrofitController);
+    public AttractionRepository attractionRepository(AttractionRetrofitController postRetrofitController) {
+        return new AttractionRepository(postRetrofitController);
     }
 }

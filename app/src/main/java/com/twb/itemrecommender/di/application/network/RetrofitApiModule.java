@@ -1,6 +1,6 @@
 package com.twb.itemrecommender.di.application.network;
 
-import com.twb.itemrecommender.data.retrofit.dao.PostService;
+import com.twb.itemrecommender.data.retrofit.dao.AttractionService;
 import com.twb.itemrecommender.di.application.ApplicationScope;
 import com.twb.itemrecommender.di.application.network.qualifiers.Authenticated;
 
@@ -13,7 +13,7 @@ public class RetrofitApiModule {
 
     @Provides
     @ApplicationScope
-    public PostService postService(@Authenticated Retrofit retrofit) {
-        return retrofit.create(PostService.class);
+    public AttractionService postService(@Authenticated Retrofit retrofit) {
+        return retrofit.create(AttractionService.class);
     }
 }

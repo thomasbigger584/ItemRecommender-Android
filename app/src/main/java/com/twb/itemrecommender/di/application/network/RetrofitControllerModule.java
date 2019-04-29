@@ -1,8 +1,8 @@
 package com.twb.itemrecommender.di.application.network;
 
 
-import com.twb.itemrecommender.data.retrofit.PostRetrofitController;
-import com.twb.itemrecommender.data.retrofit.dao.PostService;
+import com.twb.itemrecommender.data.retrofit.AttractionRetrofitController;
+import com.twb.itemrecommender.data.retrofit.dao.AttractionService;
 import com.twb.itemrecommender.di.application.ApplicationScope;
 
 import dagger.Module;
@@ -13,8 +13,7 @@ public class RetrofitControllerModule {
 
     @Provides
     @ApplicationScope
-    public PostRetrofitController postRetrofitController(PostService postService) {
-        return new PostRetrofitController(postService);
+    public AttractionRetrofitController attractionRetrofitController(AttractionService attractionService) {
+        return new AttractionRetrofitController(attractionService);
     }
-
 }

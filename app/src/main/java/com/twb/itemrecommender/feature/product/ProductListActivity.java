@@ -1,4 +1,4 @@
-package com.twb.itemrecommender.product;
+package com.twb.itemrecommender.feature.product;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.twb.itemrecommender.R;
-import com.twb.itemrecommender.navigation.BaseNavigationActivity;
+import com.twb.itemrecommender.feature.navigation.BaseNavigationActivity;
 
 import java.util.ArrayList;
 

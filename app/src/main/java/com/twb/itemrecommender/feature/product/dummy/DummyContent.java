@@ -1,4 +1,4 @@
-package com.twb.itemrecommender.mypurchases.dummy;
+package com.twb.itemrecommender.feature.product.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

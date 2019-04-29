@@ -1,4 +1,4 @@
-package com.twb.itemrecommender.mypurchases;
+package com.twb.itemrecommender.feature.mypurchases;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.twb.itemrecommender.R;
-import com.twb.itemrecommender.mypurchases.dummy.DummyContent;
-import com.twb.itemrecommender.navigation.BaseNavigationActivity;
+import com.twb.itemrecommender.feature.mypurchases.dummy.DummyContent;
+import com.twb.itemrecommender.feature.navigation.BaseNavigationActivity;
 
 import java.util.List;
 

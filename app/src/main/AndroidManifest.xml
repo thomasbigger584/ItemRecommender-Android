@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".entrypoint.EntrypointActivity"
+            android:name=".feature.entrypoint.EntrypointActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,37 +27,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".recommendation.RecommendationActivity"
+            android:name=".feature.recommendation.RecommendationActivity"
             android:label="@string/title_activity_recommendation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".mypurchases.PurchaseListActivity"
+            android:name=".feature.mypurchases.PurchaseListActivity"
             android:label="@string/title_purchase_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".mypurchases.PurchaseDetailActivity"
+            android:name=".feature.mypurchases.PurchaseDetailActivity"
             android:label="@string/title_purchase_detail"
-            android:parentActivityName=".mypurchases.PurchaseListActivity"
+            android:parentActivityName=".feature.mypurchases.PurchaseListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.twb.itemrecommender.mypurchases.PurchaseListActivity" />
+                android:value=".feature.mypurchases.PurchaseListActivity" />
         </activity>
         <activity
-            android:name=".product.ProductListActivity"
+            android:name=".feature.product.ProductListActivity"
             android:label="@string/title_product_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".product.ProductDetailActivity"
+            android:name=".feature.product.ProductDetailActivity"
             android:label="@string/title_product_detail"
-            android:parentActivityName=".product.ProductListActivity"
+            android:parentActivityName=".feature.product.ProductListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.twb.itemrecommender.product.ProductListActivity" />
+                android:value=".feature.product.ProductListActivity" />
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".feature.login.LoginActivity"
             android:label="@string/app_name" />
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />

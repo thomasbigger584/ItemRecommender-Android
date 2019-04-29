@@ -10,7 +10,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".mypurchases.PurchaseListActivity">
+    tools:context=".feature.mypurchases.PurchaseListActivity">
 
     <!--
     This layout is a two-pane layout for the Purchases
@@ -27,7 +27,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.twb.itemrecommender.mypurchases.PurchaseListActivity"
+        tools:context=".feature.mypurchases.PurchaseListActivity"
         tools:listitem="@layout/purchase_list_content" />
 
     <FrameLayout

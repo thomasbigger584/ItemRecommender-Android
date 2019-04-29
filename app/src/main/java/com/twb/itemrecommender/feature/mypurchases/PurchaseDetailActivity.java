@@ -1,4 +1,4 @@
-package com.twb.itemrecommender.mypurchases;
+package com.twb.itemrecommender.feature.mypurchases;
 
 import android.content.Intent;
 import android.os.Bundle;

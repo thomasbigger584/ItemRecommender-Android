@@ -17,6 +17,7 @@ import com.schibstedspain.leku.locale.SearchZoneRect;
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.feature.navigation.BaseNavigationActivity;
 import com.twb.itemrecommender.feature.util.Constants;
+import com.twb.itemrecommender.feature.util.LocationUtil;
 import com.twb.itemrecommender.feature.util.SharedPrefsUtils;
 
 
@@ -43,16 +44,9 @@ public class SettingsActivity extends BaseNavigationActivity {
     }
 
     public void onLocationChangeClick(View view) {
-        Double latitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LATITUDE_KEY);
-        if (latitude == null) {
-            latitude = Constants.DEFAULT_CENTER_LATITUDE;
-        }
-        Double longitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LONGITUDE_KEY);
-        if (longitude == null) {
-            longitude = Constants.DEFAULT_CENTER_LONGITUDE;
-        }
+        LocationUtil.Location location = LocationUtil.getSavedLocation(this);
         Intent intent = new LocationPickerActivity.Builder()
-                .withLocation(latitude, longitude)
+                .withLocation(location.getLatitude(), location.getLongitude())
                 .withGeolocApiKey(getString(R.string.google_maps_key))
                 .withSearchZone(new SearchZoneRect(
                         new LatLng(Constants.SOUTH_WEST_LAT_COORD, Constants.SOUTH_WEST_LONG_COORD),
@@ -65,15 +59,6 @@ public class SettingsActivity extends BaseNavigationActivity {
                 .withUnnamedRoadHidden()
                 .build(this);
         startActivityForResult(intent, MAPS_REQUEST_CODE);
-    }
-
-    public void onTravelingChangeClick(View view) {
-
-        Toast.makeText(this, "Traveling", Toast.LENGTH_SHORT).show();
-    }
-
-    public void onActivityChangeClick(View view) {
-        Toast.makeText(this, "Activity", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,17 +80,19 @@ public class SettingsActivity extends BaseNavigationActivity {
         }
     }
 
+    public void onTravelingChangeClick(View view) {
+
+        Toast.makeText(this, "Traveling", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onActivityChangeClick(View view) {
+        Toast.makeText(this, "Activity", Toast.LENGTH_SHORT).show();
+    }
+
     private void setLocationUi() {
-        Double latitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LATITUDE_KEY);
-        if (latitude == null) {
-            latitude = Constants.DEFAULT_CENTER_LATITUDE;
-        }
-        Double longitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LONGITUDE_KEY);
-        if (longitude == null) {
-            longitude = Constants.DEFAULT_CENTER_LONGITUDE;
-        }
-        locationCoordTextView.setText(String.format("(%f, %f)", latitude, longitude));
-        String address = SharedPrefsUtils.getStringPreference(this, Constants.PREF_ADDRESS_KEY);
+        LocationUtil.Location location = LocationUtil.getSavedLocation(this);
+        locationCoordTextView.setText(String.format("(%f, %f)", location.getLatitude(), location.getLongitude()));
+        String address = location.getAddress();
         if (address != null) {
             locationAddressTextView.setText(address);
             locationAddressTextView.setVisibility(View.VISIBLE);

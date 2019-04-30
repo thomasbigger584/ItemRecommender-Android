@@ -91,7 +91,7 @@ public class SettingsActivity extends BaseNavigationActivity {
 
     private void setLocationUi() {
         LocationUtil.Location location = LocationUtil.getSavedLocation(this);
-        locationCoordTextView.setText(String.format("(%f, %f)", location.getLatitude(), location.getLongitude()));
+        locationCoordTextView.setText(location.getCoordinates());
         String address = location.getAddress();
         if (address != null) {
             locationAddressTextView.setText(address);

@@ -2,6 +2,8 @@ package com.twb.itemrecommender.feature.util;
 
 import android.content.Context;
 
+import java.util.Locale;
+
 public class LocationUtil {
 
     private LocationUtil() {
@@ -40,6 +42,10 @@ public class LocationUtil {
 
         public String getAddress() {
             return address;
+        }
+
+        public String getCoordinates() {
+            return String.format(Locale.getDefault(), "(%f, %f)", this.latitude, this.longitude);
         }
     }
 }

@@ -152,7 +152,7 @@ public class SettingsActivity extends BaseNavigationActivity {
     }
 
     private void setActivityUi() {
-        String traveling = SharedPrefsUtils.getStringPreference(this, Constants.PREF_ACTIVITY_KEY);
-        activityTextView.setText(traveling);
+        String activity = SharedPrefsUtils.getStringPreference(this, Constants.PREF_ACTIVITY_KEY);
+        activityTextView.setText(activity);
     }
 }

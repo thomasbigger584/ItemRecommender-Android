@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.feature.navigation.BaseNavigationActivity;
+import com.twb.itemrecommender.feature.util.LocationUtil;
 
 
 /**
@@ -98,6 +99,8 @@ public class ProductListActivity extends BaseNavigationActivity {
         stopSwipeRefresh();
         adapter.clear();
         startSwipeRefresh();
+        LocationUtil.Location location = LocationUtil.getSavedLocation(this);
+        productListViewModel.setLocation(location);
         productListViewModel.startInitialPage();
     }
 

@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+
 public class Attraction implements Parcelable {
     @SerializedName("id")
     @Expose
@@ -82,7 +84,6 @@ public class Attraction implements Parcelable {
     @SerializedName("facilities")
     @Expose
     private Boolean facilities;
-
     public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
         @Override
         public Attraction createFromParcel(Parcel source) {
@@ -94,6 +95,9 @@ public class Attraction implements Parcelable {
             return new Attraction[size];
         }
     };
+    @SerializedName("distance")
+    @Expose
+    private Double distance;
 
     public Long getId() {
         return id;
@@ -295,13 +299,25 @@ public class Attraction implements Parcelable {
         this.facilities = facilities;
     }
 
-    @SerializedName("distance")
-    @Expose
-    private Double distance;
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    @Expose(serialize = false, deserialize = false)
+    private BigDecimal distanceBigDecimal;
 
     public Attraction() {
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
     protected Attraction(Parcel in) {
         this.id = (Long) in.readValue(Long.class.getClassLoader());
@@ -330,19 +346,15 @@ public class Attraction implements Parcelable {
         this.accessible = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.facilities = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.distance = (Double) in.readValue(Double.class.getClassLoader());
+        this.distanceBigDecimal = (BigDecimal) in.readSerializable();
     }
 
-    public Double getDistance() {
-        return distance;
+    public BigDecimal getDistanceBigDecimal() {
+        return distanceBigDecimal;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setDistanceBigDecimal(BigDecimal distanceBigDecimal) {
+        this.distanceBigDecimal = distanceBigDecimal;
     }
 
     @Override
@@ -373,5 +385,6 @@ public class Attraction implements Parcelable {
         dest.writeValue(this.accessible);
         dest.writeValue(this.facilities);
         dest.writeValue(this.distance);
+        dest.writeSerializable(this.distanceBigDecimal);
     }
 }

@@ -13,6 +13,7 @@ import com.twb.itemrecommender.data.domain.Attraction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
 
@@ -50,6 +51,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         Attraction attraction = getItem(position);
         holder.mIdView.setText(String.valueOf(attraction.getId()));
         holder.mContentView.setText(attraction.getName());
+        holder.distance.setText(String.format(Locale.getDefault(), "%.2f km", attraction.getDistanceBigDecimal().doubleValue()));
         holder.itemView.setTag(attraction);
     }
 
@@ -83,11 +85,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     class ViewHolder extends RecyclerView.ViewHolder {
         final TextView mIdView;
         final TextView mContentView;
+        final TextView distance;
 
         ViewHolder(View view) {
             super(view);
             mIdView = view.findViewById(R.id.id_text);
             mContentView = view.findViewById(R.id.content);
+            distance = view.findViewById(R.id.distance);
         }
     }
 }

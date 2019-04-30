@@ -5,6 +5,8 @@ import com.twb.itemrecommender.data.helper.DataWrapper;
 import com.twb.itemrecommender.data.retrofit.AttractionRetrofitController;
 import com.twb.itemrecommender.feature.util.LocationUtil;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +45,11 @@ public class AttractionRepository {
                 attractionRetrofitController.getAllByLocation(locationParams, paginationParams);
         if (listDataWrapper.isPresent()) {
             List<Attraction> attractionList = listDataWrapper.getData();
-//            do whatever
+            for (Attraction attraction : attractionList) {
+                BigDecimal distanceBigDecimal = new BigDecimal(attraction.getDistance());
+                distanceBigDecimal = distanceBigDecimal.setScale(2, RoundingMode.CEILING);
+                attraction.setDistanceBigDecimal(distanceBigDecimal);
+            }
         }
         return listDataWrapper;
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -61,16 +62,19 @@ public class ProductDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.product_detail_container, fragment)
                     .commit();
+            NestedScrollView nestedScrollView = findViewById(R.id.product_detail_container);
 
             FloatingActionButton fab = findViewById(R.id.fab);
             fab.setOnClickListener(view -> {
                 switch (currentFavouriteStatus) {
+//                      Action to unfavourite the product
                     case FAVOURITE_ON: {
                         fragment.onFavouriteClick(false);
                         fab.setImageResource(FAVOURITE_OFF);
                         currentFavouriteStatus = FAVOURITE_OFF;
                         break;
                     }
+//                      Action to favourite the product
                     case FAVOURITE_OFF: {
                         fragment.onFavouriteClick(true);
                         fab.setImageResource(FAVOURITE_ON);

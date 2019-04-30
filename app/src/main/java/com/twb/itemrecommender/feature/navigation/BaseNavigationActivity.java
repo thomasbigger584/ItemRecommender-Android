@@ -95,7 +95,6 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
         startActivity(intent);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        finish();
         return true;
     }
 }

@@ -13,10 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.twb.itemrecommender.R;
-import com.twb.itemrecommender.feature.login.LoginActivity;
-import com.twb.itemrecommender.feature.mypurchases.PurchaseListActivity;
 import com.twb.itemrecommender.feature.product.ProductListActivity;
 import com.twb.itemrecommender.feature.recommendation.RecommendationActivity;
+import com.twb.itemrecommender.feature.settings.SettingsActivity;
 
 public abstract class BaseNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,8 +51,10 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        if (getContentView() != R.layout.activity_settings) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
         return true;
     }
 
@@ -63,13 +64,10 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout) {
-
-            Intent intent = new Intent(this, LoginActivity.class);
+        if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -89,8 +87,8 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
                 intent = new Intent(this, RecommendationActivity.class);
                 break;
             }
-            case R.id.nav_purchases: {
-                intent = new Intent(this, PurchaseListActivity.class);
+            case R.id.nav_settings: {
+                intent = new Intent(this, SettingsActivity.class);
                 break;
             }
         }

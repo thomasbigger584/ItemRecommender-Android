@@ -31,6 +31,7 @@ public class ProductListActivity extends BaseNavigationActivity {
     private ProductListAdapter adapter;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+
     private ProductListViewModel productListViewModel;
 
     @Override

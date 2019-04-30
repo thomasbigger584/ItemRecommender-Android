@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -27,6 +26,7 @@ public class SettingsActivity extends BaseNavigationActivity {
     private TextView locationCoordTextView;
     private TextView locationAddressTextView;
     private TextView travelingWithTextView;
+    private TextView activityTextView;
 
     @Override
     protected int getContentView() {
@@ -42,8 +42,10 @@ public class SettingsActivity extends BaseNavigationActivity {
         locationCoordTextView = findViewById(R.id.locationCoordTextView);
         locationAddressTextView = findViewById(R.id.locationAddressTextView);
         travelingWithTextView = findViewById(R.id.travelingWithTextView);
+        activityTextView = findViewById(R.id.activityTextView);
         setLocationUi();
         setTravelingWithUi();
+        setActivityUi();
     }
 
     public void onLocationChangeClick(View view) {
@@ -84,7 +86,7 @@ public class SettingsActivity extends BaseNavigationActivity {
     public void onTravelingChangeClick(View view) {
         new AlertDialog.Builder(this).
                 setTitle("Traveling with...").
-                setSingleChoiceItems(Constants.TRAVELING_ANSWERS, getCheckedItem(), (dialogInterface, i) -> {
+                setSingleChoiceItems(Constants.TRAVELING_ANSWERS, getTravelingCheckedItem(), (dialogInterface, i) -> {
                     String chosenTraveling = Constants.TRAVELING_ANSWERS[i];
                     SharedPrefsUtils.setStringPreference(this, Constants.PREF_TRAVELING_KEY, chosenTraveling);
                     setTravelingWithUi();
@@ -92,7 +94,7 @@ public class SettingsActivity extends BaseNavigationActivity {
                 }).show();
     }
 
-    private int getCheckedItem() {
+    private int getTravelingCheckedItem() {
         String traveling = SharedPrefsUtils.getStringPreference(this, Constants.PREF_TRAVELING_KEY);
         if (traveling != null) {
             for (int index = 0; index < Constants.TRAVELING_ANSWERS.length; index++) {
@@ -106,9 +108,28 @@ public class SettingsActivity extends BaseNavigationActivity {
     }
 
     public void onActivityChangeClick(View view) {
-        Toast.makeText(this, "Activity", Toast.LENGTH_SHORT).show();
+        new AlertDialog.Builder(this).
+                setTitle("Activity Type...").
+                setSingleChoiceItems(Constants.ACTIVITY_ANSWERS, getActivityCheckedItem(), (dialogInterface, i) -> {
+                    String chosenActivity = Constants.ACTIVITY_ANSWERS[i];
+                    SharedPrefsUtils.setStringPreference(this, Constants.PREF_ACTIVITY_KEY, chosenActivity);
+                    setActivityUi();
+                    dialogInterface.dismiss();
+                }).show();
     }
 
+    private int getActivityCheckedItem() {
+        String activity = SharedPrefsUtils.getStringPreference(this, Constants.PREF_ACTIVITY_KEY);
+        if (activity != null) {
+            for (int index = 0; index < Constants.ACTIVITY_ANSWERS.length; index++) {
+                String thisActivity = Constants.ACTIVITY_ANSWERS[index];
+                if (activity.equals(thisActivity)) {
+                    return index;
+                }
+            }
+        }
+        return 0;
+    }
 
     /*
      * Setting UI
@@ -128,5 +149,10 @@ public class SettingsActivity extends BaseNavigationActivity {
     private void setTravelingWithUi() {
         String traveling = SharedPrefsUtils.getStringPreference(this, Constants.PREF_TRAVELING_KEY);
         travelingWithTextView.setText(traveling);
+    }
+
+    private void setActivityUi() {
+        String traveling = SharedPrefsUtils.getStringPreference(this, Constants.PREF_ACTIVITY_KEY);
+        activityTextView.setText(traveling);
     }
 }

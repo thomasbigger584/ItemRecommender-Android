@@ -41,4 +41,26 @@ public class AttractionRetrofitController {
         }
         return listDataWrapper;
     }
+
+    public DataWrapper<List<Attraction>> getAllByLocation(Map<String, Double> locationParams, Map<String, Integer> paginationParams) {
+        Call<List<Attraction>> postCall = attractionService.getAllByLocation(locationParams, paginationParams);
+        List<Attraction> attractionList = new ArrayList<>();
+        DataWrapper<List<Attraction>> listDataWrapper = new DataWrapper<>();
+        try {
+            Response<List<Attraction>> postResponse = postCall.execute();
+            if (postResponse.isSuccessful()) {
+                List<Attraction> responseBody = postResponse.body();
+                if (responseBody != null) {
+                    attractionList.addAll(responseBody);
+                    listDataWrapper.setData(attractionList);
+                    return listDataWrapper;
+                }
+            }
+            ErrorParser.parse(postResponse);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            listDataWrapper.setError(e);
+        }
+        return listDataWrapper;
+    }
 }

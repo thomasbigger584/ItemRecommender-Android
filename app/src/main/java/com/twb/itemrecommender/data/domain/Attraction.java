@@ -83,6 +83,18 @@ public class Attraction implements Parcelable {
     @Expose
     private Boolean facilities;
 
+    public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
+        @Override
+        public Attraction createFromParcel(Parcel source) {
+            return new Attraction(source);
+        }
+
+        @Override
+        public Attraction[] newArray(int size) {
+            return new Attraction[size];
+        }
+    };
+
     public Long getId() {
         return id;
     }
@@ -283,20 +295,13 @@ public class Attraction implements Parcelable {
         this.facilities = facilities;
     }
 
-    public static final Parcelable.Creator<Attraction> CREATOR = new Parcelable.Creator<Attraction>() {
-        @Override
-        public Attraction createFromParcel(Parcel source) {
-            return new Attraction(source);
-        }
-
-        @Override
-        public Attraction[] newArray(int size) {
-            return new Attraction[size];
-        }
-    };
+    @SerializedName("distance")
+    @Expose
+    private Double distance;
 
     public Attraction() {
     }
+
 
     protected Attraction(Parcel in) {
         this.id = (Long) in.readValue(Long.class.getClassLoader());
@@ -324,6 +329,15 @@ public class Attraction implements Parcelable {
         this.childPrice = (Double) in.readValue(Double.class.getClassLoader());
         this.accessible = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.facilities = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.distance = (Double) in.readValue(Double.class.getClassLoader());
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 
     @Override
@@ -358,36 +372,6 @@ public class Attraction implements Parcelable {
         dest.writeValue(this.childPrice);
         dest.writeValue(this.accessible);
         dest.writeValue(this.facilities);
-    }
-
-    @Override
-    public String toString() {
-        return "Attraction{" +
-                "id=" + id +
-                ", sygicTravelId='" + sygicTravelId + '\'' +
-                ", rating=" + rating +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", name='" + name + '\'' +
-                ", marker='" + marker + '\'' +
-                ", perex='" + perex + '\'' +
-                ", thumbnailUrl='" + thumbnailUrl + '\'' +
-                ", categories='" + categories + '\'' +
-                ", dsSummary='" + dsSummary + '\'' +
-                ", dsIcon='" + dsIcon + '\'' +
-                ", dsApparentTemperatureHigh=" + dsApparentTemperatureHigh +
-                ", dsApparentTemperatureLow=" + dsApparentTemperatureLow +
-                ", dsDewPoint=" + dsDewPoint +
-                ", dsHumidity=" + dsHumidity +
-                ", dsPressure=" + dsPressure +
-                ", dsWindSpeed=" + dsWindSpeed +
-                ", dsWindGust=" + dsWindGust +
-                ", dsCloudCover=" + dsCloudCover +
-                ", dsVisibility=" + dsVisibility +
-                ", adultPrice=" + adultPrice +
-                ", childPrice=" + childPrice +
-                ", accessible=" + accessible +
-                ", facilities=" + facilities +
-                '}';
+        dest.writeValue(this.distance);
     }
 }

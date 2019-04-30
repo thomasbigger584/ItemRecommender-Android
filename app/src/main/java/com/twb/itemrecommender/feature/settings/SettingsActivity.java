@@ -109,7 +109,7 @@ public class SettingsActivity extends BaseNavigationActivity {
 
     public void onActivityChangeClick(View view) {
         new AlertDialog.Builder(this).
-                setTitle("Activity Type...").
+                setTitle("Activity type...").
                 setSingleChoiceItems(Constants.ACTIVITY_ANSWERS, getActivityCheckedItem(), (dialogInterface, i) -> {
                     String chosenActivity = Constants.ACTIVITY_ANSWERS[i];
                     SharedPrefsUtils.setStringPreference(this, Constants.PREF_ACTIVITY_KEY, chosenActivity);

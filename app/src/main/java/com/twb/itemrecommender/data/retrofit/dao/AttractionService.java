@@ -12,5 +12,8 @@ import retrofit2.http.QueryMap;
 public interface AttractionService {
 
     @GET("ext-attraction")
-    Call<List<Attraction>> getAll(@QueryMap(encoded = true) Map<String, Integer> queryParamsMap);
+    Call<List<Attraction>> getAll(@QueryMap(encoded = true) Map<String, Integer> paginationParams);
+
+    @GET("ext-attraction/by-location")
+    Call<List<Attraction>> getAllByLocation(@QueryMap(encoded = true) Map<String, Double> locationParamsMap, @QueryMap(encoded = true) Map<String, Integer> paginationParams);
 }

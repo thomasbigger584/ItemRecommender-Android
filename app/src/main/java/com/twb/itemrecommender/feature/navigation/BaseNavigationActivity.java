@@ -67,9 +67,14 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
+            Intent intent = null;
+            if (getContentView() != R.layout.activity_settings) {
+                intent = new Intent(this, SettingsActivity.class);
+            }
+            if (intent != null) {
+                startActivity(intent);
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -81,19 +86,27 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.nav_products: {
-                intent = new Intent(this, ProductListActivity.class);
+                if (getContentView() != R.layout.activity_product_list) {
+                    intent = new Intent(this, ProductListActivity.class);
+                }
                 break;
             }
             case R.id.nav_recommendations: {
-                intent = new Intent(this, RecommendationActivity.class);
+                if (getContentView() != R.layout.activity_recommendation) {
+                    intent = new Intent(this, RecommendationActivity.class);
+                }
                 break;
             }
             case R.id.nav_settings: {
-                intent = new Intent(this, SettingsActivity.class);
+                if (getContentView() != R.layout.activity_settings) {
+                    intent = new Intent(this, SettingsActivity.class);
+                }
                 break;
             }
         }
-        startActivity(intent);
+        if (intent != null) {
+            startActivity(intent);
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -19,6 +19,7 @@ import com.twb.itemrecommender.feature.navigation.BaseNavigationActivity;
 import com.twb.itemrecommender.feature.util.Constants;
 import com.twb.itemrecommender.feature.util.SharedPrefsUtils;
 
+
 public class SettingsActivity extends BaseNavigationActivity {
 
     private static final int MAPS_REQUEST_CODE = 1000;
@@ -36,18 +37,17 @@ public class SettingsActivity extends BaseNavigationActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Settings");
         }
-
         locationCoordTextView = findViewById(R.id.locationCoordTextView);
         locationAddressTextView = findViewById(R.id.locationAddressTextView);
         setLocationUi();
     }
 
     public void onLocationChangeClick(View view) {
-        Double latitude = SharedPrefsUtils.getDoublePreference(this, "latitude");
+        Double latitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LATITUDE_KEY);
         if (latitude == null) {
             latitude = Constants.DEFAULT_CENTER_LATITUDE;
         }
-        Double longitude = SharedPrefsUtils.getDoublePreference(this, "longitude");
+        Double longitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LONGITUDE_KEY);
         if (longitude == null) {
             longitude = Constants.DEFAULT_CENTER_LONGITUDE;
         }
@@ -84,9 +84,9 @@ public class SettingsActivity extends BaseNavigationActivity {
                 double longitude = data.getDoubleExtra(LocationPickerActivityKt.LONGITUDE, 0d);
                 String address = data.getStringExtra(LocationPickerActivityKt.LOCATION_ADDRESS);
 
-                SharedPrefsUtils.setDoublePreference(this, "latitude", latitude);
-                SharedPrefsUtils.setDoublePreference(this, "longitude", longitude);
-                SharedPrefsUtils.setStringPreference(this, "address", address);
+                SharedPrefsUtils.setDoublePreference(this, Constants.PREF_LATITUDE_KEY, latitude);
+                SharedPrefsUtils.setDoublePreference(this, Constants.PREF_LONGITUDE_KEY, longitude);
+                SharedPrefsUtils.setStringPreference(this, Constants.PREF_ADDRESS_KEY, address);
 
                 setLocationUi();
             }
@@ -96,16 +96,16 @@ public class SettingsActivity extends BaseNavigationActivity {
     }
 
     private void setLocationUi() {
-        Double latitude = SharedPrefsUtils.getDoublePreference(this, "latitude");
+        Double latitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LATITUDE_KEY);
         if (latitude == null) {
             latitude = Constants.DEFAULT_CENTER_LATITUDE;
         }
-        Double longitude = SharedPrefsUtils.getDoublePreference(this, "longitude");
+        Double longitude = SharedPrefsUtils.getDoublePreference(this, Constants.PREF_LONGITUDE_KEY);
         if (longitude == null) {
             longitude = Constants.DEFAULT_CENTER_LONGITUDE;
         }
         locationCoordTextView.setText(String.format("(%f, %f)", latitude, longitude));
-        String address = SharedPrefsUtils.getStringPreference(this, "address");
+        String address = SharedPrefsUtils.getStringPreference(this, Constants.PREF_ADDRESS_KEY);
         if (address != null) {
             locationAddressTextView.setText(address);
             locationAddressTextView.setVisibility(View.VISIBLE);

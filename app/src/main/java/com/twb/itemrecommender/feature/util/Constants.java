@@ -9,4 +9,10 @@ public class Constants {
 
     public static final double DEFAULT_CENTER_LATITUDE = (SOUTH_WEST_LAT_COORD + NORTH_EAST_LAT_COORD) / 2;
     public static final double DEFAULT_CENTER_LONGITUDE = (SOUTH_WEST_LONG_COORD + NORTH_EAST_LONG_COORD) / 2;
+
+
+    public static final String PREF_LATITUDE_KEY = "latitude";
+    public static final String PREF_LONGITUDE_KEY = "longitude";
+    public static final String PREF_ADDRESS_KEY = "address";
+
 }

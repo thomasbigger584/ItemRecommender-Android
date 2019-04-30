@@ -2,8 +2,8 @@ package com.twb.itemrecommender.feature.product;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,16 +19,21 @@ import com.twb.itemrecommender.R;
  */
 public class ProductDetailActivity extends AppCompatActivity {
 
+    @DrawableRes
+    private static final int FAVOURITE_ON = android.R.drawable.btn_star_big_on;
+
+    @DrawableRes
+    private static final int FAVOURITE_OFF = android.R.drawable.btn_star_big_off;
+
+    @DrawableRes
+    private int currentFavouriteStatus = FAVOURITE_OFF;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -56,6 +61,24 @@ public class ProductDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.product_detail_container, fragment)
                     .commit();
+
+            FloatingActionButton fab = findViewById(R.id.fab);
+            fab.setOnClickListener(view -> {
+                switch (currentFavouriteStatus) {
+                    case FAVOURITE_ON: {
+                        fragment.onFavouriteClick(false);
+                        fab.setImageResource(FAVOURITE_OFF);
+                        currentFavouriteStatus = FAVOURITE_OFF;
+                        break;
+                    }
+                    case FAVOURITE_OFF: {
+                        fragment.onFavouriteClick(true);
+                        fab.setImageResource(FAVOURITE_ON);
+                        currentFavouriteStatus = FAVOURITE_ON;
+                        break;
+                    }
+                }
+            });
         }
     }
 

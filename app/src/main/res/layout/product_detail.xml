@@ -1,10 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/product_detail"
-    style="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".feature.product.ProductDetailFragment" />
+    android:orientation="vertical"
+    tools:context=".feature.product.ProductDetailFragment">
+
+    <TextView
+        android:id="@+id/product_detail"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/marker"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <TextView
+        android:id="@+id/categories"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <TextView
+        android:id="@+id/summary"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <TextView
+        android:id="@+id/apparentTempHigh"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/apparentTempLow"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+
+    <TextView
+        android:id="@+id/dewPoint"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:textIsSelectable="true" />
+
+
+    <TextView
+        android:id="@+id/humidity"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <TextView
+        android:id="@+id/pressure"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <TextView
+        android:id="@+id/windspeed"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <TextView
+        android:id="@+id/windgust"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <TextView
+        android:id="@+id/cloudcover"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp" />
+
+    <Button
+        android:id="@+id/purchaseButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:text="Purchase"
+        android:visibility="gone" />
+
+</LinearLayout>
+
+
+

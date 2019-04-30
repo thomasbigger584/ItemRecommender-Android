@@ -2,13 +2,14 @@ package com.twb.itemrecommender.feature.mypurchases;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.feature.mypurchases.dummy.DummyContent;
 

@@ -2,7 +2,8 @@ package com.twb.itemrecommender.feature.entrypoint;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.feature.product.ProductListActivity;

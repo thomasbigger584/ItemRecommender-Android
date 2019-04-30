@@ -3,12 +3,12 @@ package com.twb.itemrecommender.feature.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.schibstedspain.leku.LocationPickerActivity;
@@ -26,6 +26,7 @@ public class SettingsActivity extends BaseNavigationActivity {
     private static final int MAPS_REQUEST_CODE = 1000;
     private TextView locationCoordTextView;
     private TextView locationAddressTextView;
+    private TextView travelingWithTextView;
 
     @Override
     protected int getContentView() {
@@ -40,7 +41,9 @@ public class SettingsActivity extends BaseNavigationActivity {
         }
         locationCoordTextView = findViewById(R.id.locationCoordTextView);
         locationAddressTextView = findViewById(R.id.locationAddressTextView);
+        travelingWithTextView = findViewById(R.id.travelingWithTextView);
         setLocationUi();
+        setTravelingWithUi();
     }
 
     public void onLocationChangeClick(View view) {
@@ -75,20 +78,41 @@ public class SettingsActivity extends BaseNavigationActivity {
 
                 setLocationUi();
             }
-        } else if (resultCode == Activity.RESULT_CANCELED) {
-            Log.d("RESULT****", "CANCELLED");
         }
     }
 
     public void onTravelingChangeClick(View view) {
+        new AlertDialog.Builder(this).
+                setTitle("Traveling with...").
+                setSingleChoiceItems(Constants.TRAVELING_ANSWERS, getCheckedItem(), (dialogInterface, i) -> {
+                    String chosenTraveling = Constants.TRAVELING_ANSWERS[i];
+                    SharedPrefsUtils.setStringPreference(this, Constants.PREF_TRAVELING_KEY, chosenTraveling);
+                    setTravelingWithUi();
+                    dialogInterface.dismiss();
+                }).show();
+    }
 
-        Toast.makeText(this, "Traveling", Toast.LENGTH_SHORT).show();
+    private int getCheckedItem() {
+        String traveling = SharedPrefsUtils.getStringPreference(this, Constants.PREF_TRAVELING_KEY);
+        if (traveling != null) {
+            for (int index = 0; index < Constants.TRAVELING_ANSWERS.length; index++) {
+                String thisTraveling = Constants.TRAVELING_ANSWERS[index];
+                if (traveling.equals(thisTraveling)) {
+                    return index;
+                }
+            }
+        }
+        return 0;
     }
 
     public void onActivityChangeClick(View view) {
         Toast.makeText(this, "Activity", Toast.LENGTH_SHORT).show();
     }
 
+
+    /*
+     * Setting UI
+     */
     private void setLocationUi() {
         LocationUtil.Location location = LocationUtil.getSavedLocation(this);
         locationCoordTextView.setText(location.getCoordinates());
@@ -99,5 +123,10 @@ public class SettingsActivity extends BaseNavigationActivity {
         } else {
             locationAddressTextView.setVisibility(View.GONE);
         }
+    }
+
+    private void setTravelingWithUi() {
+        String traveling = SharedPrefsUtils.getStringPreference(this, Constants.PREF_TRAVELING_KEY);
+        travelingWithTextView.setText(traveling);
     }
 }

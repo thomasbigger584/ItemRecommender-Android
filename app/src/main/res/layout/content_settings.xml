@@ -6,30 +6,51 @@
     android:orientation="vertical"
     tools:context=".feature.settings.SettingsActivity">
 
-    <FrameLayout
-        android:id="@+id/locationFrameLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onLocationChangeClick"
-        android:padding="32dp">
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingTop="16dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="16dp">
+
+        <FrameLayout
+            android:id="@+id/locationFrameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:text="Mock Location" />
+
+            <TextView
+                android:id="@+id/locationCoordTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="end" />
+        </FrameLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="Mock Location" />
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/locationAddressTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="(123, 456)" />
+            android:layout_marginTop="4dp"
+            android:gravity="end"
+            android:visibility="gone" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:background="@android:color/darker_gray" />
 
     <FrameLayout
@@ -37,7 +58,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onTravelingChangeClick"
-        android:padding="32dp">
+        android:paddingLeft="32dp"
+        android:paddingTop="16dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -56,6 +80,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:background="@android:color/darker_gray" />
 
     <FrameLayout
@@ -63,7 +89,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onActivityChangeClick"
-        android:padding="32dp">
+        android:paddingLeft="32dp"
+        android:paddingTop="16dp"
+        android:paddingRight="32dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,6 +111,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:background="@android:color/darker_gray" />
 
 </LinearLayout>

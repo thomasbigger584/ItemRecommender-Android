@@ -63,4 +63,41 @@ public class AttractionRetrofitController {
         }
         return listDataWrapper;
     }
+
+    public DataWrapper<Void> takeInterest(AttractionService.RegisterInterestRequest registerInterestRequest) {
+        Call<Void> postCall = attractionService.takeInterest(registerInterestRequest);
+        DataWrapper<Void> dataWrapper = new DataWrapper<>();
+        try {
+            Response<Void> response = postCall.execute();
+            if (response.isSuccessful()) {
+                Void responseBody = response.body();
+                dataWrapper.setData(responseBody);
+                return dataWrapper;
+            }
+            ErrorParser.parse(response);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            dataWrapper.setError(e);
+        }
+        return dataWrapper;
+    }
+
+    public DataWrapper<Void> takeAction(AttractionService.TakeActionRequest takeActionRequest) {
+        Call<Void> postCall = attractionService.takeAction(takeActionRequest);
+        DataWrapper<Void> dataWrapper = new DataWrapper<>();
+        try {
+            Response<Void> response = postCall.execute();
+            if (response.isSuccessful()) {
+                Void responseBody = response.body();
+                dataWrapper.setData(responseBody);
+                return dataWrapper;
+            }
+            ErrorParser.parse(response);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            dataWrapper.setError(e);
+        }
+        return dataWrapper;
+    }
+
 }

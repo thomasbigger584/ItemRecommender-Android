@@ -3,6 +3,7 @@ package com.twb.itemrecommender.data;
 import com.twb.itemrecommender.data.domain.Attraction;
 import com.twb.itemrecommender.data.helper.DataWrapper;
 import com.twb.itemrecommender.data.retrofit.AttractionRetrofitController;
+import com.twb.itemrecommender.data.retrofit.dao.AttractionService;
 import com.twb.itemrecommender.feature.util.LocationUtil;
 
 import java.math.BigDecimal;
@@ -46,12 +47,38 @@ public class AttractionRepository {
         if (listDataWrapper.isPresent()) {
             List<Attraction> attractionList = listDataWrapper.getData();
             for (Attraction attraction : attractionList) {
-                BigDecimal distanceBigDecimal = new BigDecimal(attraction.getDistance());
-                distanceBigDecimal = distanceBigDecimal.setScale(2, RoundingMode.CEILING);
-                attraction.setDistanceBigDecimal(distanceBigDecimal);
+                updateAttraction(attraction);
             }
         }
         return listDataWrapper;
+    }
+
+    private void updateAttraction(Attraction attraction) {
+        BigDecimal distanceBigDecimal = new BigDecimal(attraction.getDistance());
+        distanceBigDecimal = distanceBigDecimal.setScale(2, RoundingMode.CEILING);
+        attraction.setDistanceBigDecimal(distanceBigDecimal);
+    }
+
+    public DataWrapper<Void> takeInterest(Long attractionId, String traveling, String activity, Double userDistance, LocationUtil.Location location) {
+        AttractionService.RegisterInterestRequest request =
+                new AttractionService.RegisterInterestRequest(attractionId, traveling, activity, userDistance, location);
+        DataWrapper<Void> dataWrapper =
+                attractionRetrofitController.takeInterest(request);
+        if (dataWrapper.isPresent()) {
+            Void responseData = dataWrapper.getData();
+        }
+        return dataWrapper;
+    }
+
+    public DataWrapper<Void> takeAction(Long attractionPurchaseId) {
+        AttractionService.TakeActionRequest takeActionRequest =
+                new AttractionService.TakeActionRequest(attractionPurchaseId);
+        DataWrapper<Void> dataWrapper =
+                attractionRetrofitController.takeAction(takeActionRequest);
+        if (dataWrapper.isPresent()) {
+            Void responseData = dataWrapper.getData();
+        }
+        return dataWrapper;
     }
 
 }

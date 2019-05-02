@@ -80,16 +80,6 @@ public class ProductDetailFragment extends Fragment {
 
                 viewModel = ViewModelProviders.
                         of(this).get(ProductDetailViewModel.class);
-
-                viewModel.registerInterestSingleLiveEvent.observe(this, integer -> this.purchaseButton.setVisibility(View.VISIBLE));
-                viewModel.takeActionSingleLiveEvent.observe(this, aVoid -> {
-                    Toast.makeText(activity, mItem.getName() + " Booked", Toast.LENGTH_SHORT).show();
-                    this.purchaseButton.setVisibility(View.GONE);
-                    activity.navigateUpTo(new Intent(activity, ProductListActivity.class));
-                });
-                viewModel.errorLiveEvent.observe(this, error -> {
-                    Toast.makeText(activity, error, Toast.LENGTH_SHORT).show();
-                });
             }
         }
     }
@@ -114,8 +104,23 @@ public class ProductDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.windspeed)).setText(String.format("Wind Speed: %s", mItem.getDsWindSpeed()));
             ((TextView) rootView.findViewById(R.id.windgust)).setText(String.format("Wind Gust: %s", mItem.getDsWindGust()));
             ((TextView) rootView.findViewById(R.id.cloudcover)).setText(String.format("Cloud Cover: %s", mItem.getDsCloudCover()));
-
             this.purchaseButton = rootView.findViewById(R.id.purchaseButton);
+
+            Activity activity = this.getActivity();
+            assert activity != null;
+
+            viewModel.registerInterestSingleLiveEvent.observe(this, integer -> this.purchaseButton.setVisibility(View.VISIBLE));
+
+            viewModel.takeActionSingleLiveEvent.observe(this, aVoid -> {
+                Toast.makeText(activity, mItem.getName() + " Booked", Toast.LENGTH_SHORT).show();
+                this.purchaseButton.setVisibility(View.GONE);
+                activity.navigateUpTo(new Intent(activity, ProductListActivity.class));
+            });
+
+            viewModel.errorLiveEvent.observe(this, error -> {
+                Toast.makeText(activity, error, Toast.LENGTH_SHORT).show();
+            });
+
             this.purchaseButton.setOnClickListener(view -> viewModel.takeAction());
         }
         return rootView;

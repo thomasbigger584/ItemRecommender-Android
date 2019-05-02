@@ -55,7 +55,7 @@
             android:label="@string/title_product_list"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".feature.product.ProductDetailActivity"
+            android:name=".feature.product.detail.ProductDetailActivity"
             android:label="@string/title_product_detail"
             android:parentActivityName=".feature.product.ProductListActivity"
             android:theme="@style/AppTheme.NoActionBar">

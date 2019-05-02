@@ -1,4 +1,4 @@
-package com.twb.itemrecommender.feature.product;
+package com.twb.itemrecommender.feature.product.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.twb.itemrecommender.R;
+import com.twb.itemrecommender.feature.product.ProductListActivity;
 
 /**
  * An activity representing a single Product detail screen. This
@@ -63,18 +63,17 @@ public class ProductDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.product_detail_container, fragment)
                     .commit();
-            NestedScrollView nestedScrollView = findViewById(R.id.product_detail_container);
 
             FloatingActionButton fab = findViewById(R.id.fab);
             fab.setOnClickListener(view -> {
                 switch (currentFavouriteStatus) {
 //                      Action to unfavourite the product
-                    case FAVOURITE_ON: {
-                        fragment.onFavouriteClick(false);
-                        fab.setImageResource(FAVOURITE_OFF);
-                        currentFavouriteStatus = FAVOURITE_OFF;
-                        break;
-                    }
+//                    case FAVOURITE_ON: {
+//                        fragment.onFavouriteClick(true);
+//                        fab.setImageResource(FAVOURITE_OFF);
+//                        currentFavouriteStatus = FAVOURITE_OFF;
+//                        break;
+//                    }
 //                      Action to favourite the product
                     case FAVOURITE_OFF: {
                         fragment.onFavouriteClick(true);

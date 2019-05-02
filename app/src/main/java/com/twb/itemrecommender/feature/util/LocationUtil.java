@@ -26,7 +26,7 @@ public class LocationUtil {
         private final double longitude;
         private final String address;
 
-        public Location(double latitude, double longitude, String address) {
+        Location(double latitude, double longitude, String address) {
             this.latitude = latitude;
             this.longitude = longitude;
             this.address = address;

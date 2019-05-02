@@ -1,6 +1,7 @@
-package com.twb.itemrecommender.feature.product;
+package com.twb.itemrecommender.feature.product.detail;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,15 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.data.domain.Attraction;
+import com.twb.itemrecommender.feature.product.ProductListActivity;
+import com.twb.itemrecommender.feature.util.Constants;
+import com.twb.itemrecommender.feature.util.LocationUtil;
+import com.twb.itemrecommender.feature.util.SharedPrefsUtils;
 
 /**
  * A fragment representing a single Product detail screen.
@@ -25,7 +32,6 @@ import com.twb.itemrecommender.data.domain.Attraction;
  * on handsets.
  */
 public class ProductDetailFragment extends Fragment {
-
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -38,6 +44,8 @@ public class ProductDetailFragment extends Fragment {
     private Attraction mItem;
 
     private Button purchaseButton;
+
+    private ProductDetailViewModel viewModel;
 
 
     /**
@@ -69,6 +77,19 @@ public class ProductDetailFragment extends Fragment {
                         load(mItem.getThumbnailUrl()).
                         apply(RequestOptions.centerCropTransform()).
                         into(toolbarImageView);
+
+                viewModel = ViewModelProviders.
+                        of(this).get(ProductDetailViewModel.class);
+
+                viewModel.registerInterestSingleLiveEvent.observe(this, integer -> this.purchaseButton.setVisibility(View.VISIBLE));
+                viewModel.takeActionSingleLiveEvent.observe(this, aVoid -> {
+                    Toast.makeText(activity, mItem.getName() + " Booked", Toast.LENGTH_SHORT).show();
+                    this.purchaseButton.setVisibility(View.GONE);
+                    activity.navigateUpTo(new Intent(activity, ProductListActivity.class));
+                });
+                viewModel.errorLiveEvent.observe(this, error -> {
+                    Toast.makeText(activity, error, Toast.LENGTH_SHORT).show();
+                });
             }
         }
     }
@@ -95,17 +116,28 @@ public class ProductDetailFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.cloudcover)).setText(String.format("Cloud Cover: %s", mItem.getDsCloudCover()));
 
             this.purchaseButton = rootView.findViewById(R.id.purchaseButton);
-
+            this.purchaseButton.setOnClickListener(view -> viewModel.takeAction());
         }
         return rootView;
     }
 
-    public void onFavouriteClick(boolean show) {
-
-        if (show) {
-            this.purchaseButton.setVisibility(View.VISIBLE);
+    public void onFavouriteClick(boolean favourite) {
+        if (favourite) {
+            Activity activity = this.getActivity();
+            String thisTraveling = SharedPrefsUtils.getStringPreference(activity, Constants.PREF_TRAVELING_KEY);
+            if (thisTraveling == null) {
+                Toast.makeText(activity, "Traveling is not set", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String thisActivity = SharedPrefsUtils.getStringPreference(activity, Constants.PREF_ACTIVITY_KEY);
+            if (thisActivity == null) {
+                Toast.makeText(activity, "Activity is not set", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            LocationUtil.Location location = LocationUtil.getSavedLocation(activity);
+            this.viewModel.registerInterest(mItem.getId(), thisTraveling, thisActivity, mItem.getDistance(), location);
         } else {
-            this.purchaseButton.setVisibility(View.GONE);
+
         }
     }
 }

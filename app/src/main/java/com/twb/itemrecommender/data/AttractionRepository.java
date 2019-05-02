@@ -1,6 +1,7 @@
 package com.twb.itemrecommender.data;
 
 import com.twb.itemrecommender.data.domain.Attraction;
+import com.twb.itemrecommender.data.domain.AttractionPurchase;
 import com.twb.itemrecommender.data.helper.DataWrapper;
 import com.twb.itemrecommender.data.retrofit.AttractionRetrofitController;
 import com.twb.itemrecommender.data.retrofit.dao.AttractionService;
@@ -59,24 +60,24 @@ public class AttractionRepository {
         attraction.setDistanceBigDecimal(distanceBigDecimal);
     }
 
-    public DataWrapper<Void> takeInterest(Long attractionId, String traveling, String activity, Double userDistance, LocationUtil.Location location) {
+    public DataWrapper<AttractionPurchase> takeInterest(Long attractionId, String traveling, String activity, Double userDistance, LocationUtil.Location location) {
         AttractionService.RegisterInterestRequest request =
                 new AttractionService.RegisterInterestRequest(attractionId, traveling, activity, userDistance, location);
-        DataWrapper<Void> dataWrapper =
+        DataWrapper<AttractionPurchase> dataWrapper =
                 attractionRetrofitController.takeInterest(request);
         if (dataWrapper.isPresent()) {
-            Void responseData = dataWrapper.getData();
+            AttractionPurchase responseData = dataWrapper.getData();
         }
         return dataWrapper;
     }
 
-    public DataWrapper<Void> takeAction(Long attractionPurchaseId) {
+    public DataWrapper<AttractionPurchase> takeAction(Long attractionPurchaseId) {
         AttractionService.TakeActionRequest takeActionRequest =
                 new AttractionService.TakeActionRequest(attractionPurchaseId);
-        DataWrapper<Void> dataWrapper =
+        DataWrapper<AttractionPurchase> dataWrapper =
                 attractionRetrofitController.takeAction(takeActionRequest);
         if (dataWrapper.isPresent()) {
-            Void responseData = dataWrapper.getData();
+            AttractionPurchase responseData = dataWrapper.getData();
         }
         return dataWrapper;
     }

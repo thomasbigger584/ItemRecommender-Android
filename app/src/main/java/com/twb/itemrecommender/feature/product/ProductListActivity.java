@@ -11,6 +11,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.feature.navigation.BaseNavigationActivity;
+import com.twb.itemrecommender.feature.product.detail.ProductDetailActivity;
+import com.twb.itemrecommender.feature.product.detail.ProductDetailFragment;
 import com.twb.itemrecommender.feature.util.LocationUtil;
 
 

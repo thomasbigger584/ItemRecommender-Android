@@ -1,6 +1,7 @@
 package com.twb.itemrecommender.data.retrofit;
 
 import com.twb.itemrecommender.data.domain.Attraction;
+import com.twb.itemrecommender.data.domain.AttractionPurchase;
 import com.twb.itemrecommender.data.helper.DataWrapper;
 import com.twb.itemrecommender.data.retrofit.api.ErrorParser;
 import com.twb.itemrecommender.data.retrofit.dao.AttractionService;
@@ -64,13 +65,13 @@ public class AttractionRetrofitController {
         return listDataWrapper;
     }
 
-    public DataWrapper<Void> takeInterest(AttractionService.RegisterInterestRequest registerInterestRequest) {
-        Call<Void> postCall = attractionService.takeInterest(registerInterestRequest);
-        DataWrapper<Void> dataWrapper = new DataWrapper<>();
+    public DataWrapper<AttractionPurchase> takeInterest(AttractionService.RegisterInterestRequest registerInterestRequest) {
+        Call<AttractionPurchase> postCall = attractionService.takeInterest(registerInterestRequest);
+        DataWrapper<AttractionPurchase> dataWrapper = new DataWrapper<>();
         try {
-            Response<Void> response = postCall.execute();
+            Response<AttractionPurchase> response = postCall.execute();
             if (response.isSuccessful()) {
-                Void responseBody = response.body();
+                AttractionPurchase responseBody = response.body();
                 dataWrapper.setData(responseBody);
                 return dataWrapper;
             }
@@ -82,13 +83,13 @@ public class AttractionRetrofitController {
         return dataWrapper;
     }
 
-    public DataWrapper<Void> takeAction(AttractionService.TakeActionRequest takeActionRequest) {
-        Call<Void> postCall = attractionService.takeAction(takeActionRequest);
-        DataWrapper<Void> dataWrapper = new DataWrapper<>();
+    public DataWrapper<AttractionPurchase> takeAction(AttractionService.TakeActionRequest takeActionRequest) {
+        Call<AttractionPurchase> postCall = attractionService.takeAction(takeActionRequest);
+        DataWrapper<AttractionPurchase> dataWrapper = new DataWrapper<>();
         try {
-            Response<Void> response = postCall.execute();
+            Response<AttractionPurchase> response = postCall.execute();
             if (response.isSuccessful()) {
-                Void responseBody = response.body();
+                AttractionPurchase responseBody = response.body();
                 dataWrapper.setData(responseBody);
                 return dataWrapper;
             }
@@ -99,5 +100,4 @@ public class AttractionRetrofitController {
         }
         return dataWrapper;
     }
-
 }

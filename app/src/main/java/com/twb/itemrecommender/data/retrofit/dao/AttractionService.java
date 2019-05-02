@@ -3,6 +3,7 @@ package com.twb.itemrecommender.data.retrofit.dao;
 import androidx.annotation.Keep;
 
 import com.twb.itemrecommender.data.domain.Attraction;
+import com.twb.itemrecommender.data.domain.AttractionPurchase;
 import com.twb.itemrecommender.feature.util.LocationUtil;
 
 import java.util.List;
@@ -24,10 +25,10 @@ public interface AttractionService {
     Call<List<Attraction>> getAllByLocation(@QueryMap(encoded = true) Map<String, Double> locationParamsMap, @QueryMap(encoded = true) Map<String, Integer> paginationParams);
 
     @POST("ext-attraction-purchase/interest")
-    Call<Void> takeInterest(@Body RegisterInterestRequest registerInterestRequest);
+    Call<AttractionPurchase> takeInterest(@Body RegisterInterestRequest registerInterestRequest);
 
     @PUT("ext-attraction-purchase/take-action")
-    Call<Void> takeAction(@Body TakeActionRequest registerInterestRequest);
+    Call<AttractionPurchase> takeAction(@Body TakeActionRequest registerInterestRequest);
 
     @Keep
     class RegisterInterestRequest {

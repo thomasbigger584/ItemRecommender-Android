@@ -15,7 +15,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.twb.itemrecommender.R;
 import com.twb.itemrecommender.feature.product.ProductListActivity;
-import com.twb.itemrecommender.feature.recommendation.RecommendationActivity;
 import com.twb.itemrecommender.feature.settings.SettingsActivity;
 
 public abstract class BaseNavigationActivity extends AppCompatActivity
@@ -92,9 +91,9 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_recommendations: {
-                if (getContentView() != R.layout.activity_recommendation) {
-                    intent = new Intent(this, RecommendationActivity.class);
-                }
+//                if (getContentView() != R.layout.activity_recommendation) {
+//                    intent = new Intent(this, RecommendationActivity.class);
+//                }
                 break;
             }
             case R.id.nav_settings: {
@@ -104,11 +103,12 @@ public abstract class BaseNavigationActivity extends AppCompatActivity
                 break;
             }
         }
-        if (intent != null) {
+        boolean itemSelected = (intent != null);
+        if (itemSelected) {
             startActivity(intent);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return itemSelected;
     }
 }

@@ -2,6 +2,7 @@ package com.twb.itemrecommender.data.retrofit;
 
 import com.twb.itemrecommender.data.domain.Attraction;
 import com.twb.itemrecommender.data.domain.AttractionPurchase;
+import com.twb.itemrecommender.data.domain.Recommendation;
 import com.twb.itemrecommender.data.helper.DataWrapper;
 import com.twb.itemrecommender.data.retrofit.api.ErrorParser;
 import com.twb.itemrecommender.data.retrofit.dao.AttractionService;
@@ -99,5 +100,27 @@ public class AttractionRetrofitController {
             dataWrapper.setError(e);
         }
         return dataWrapper;
+    }
+
+    public DataWrapper<List<Recommendation>> getRecommendations(Map<String, Double> locationParams) {
+        Call<List<Recommendation>> postCall = attractionService.getRecommendations(locationParams);
+        List<Recommendation> recommendationList = new ArrayList<>();
+        DataWrapper<List<Recommendation>> listDataWrapper = new DataWrapper<>();
+        try {
+            Response<List<Recommendation>> postResponse = postCall.execute();
+            if (postResponse.isSuccessful()) {
+                List<Recommendation> responseBody = postResponse.body();
+                if (responseBody != null) {
+                    recommendationList.addAll(responseBody);
+                    listDataWrapper.setData(recommendationList);
+                    return listDataWrapper;
+                }
+            }
+            ErrorParser.parse(postResponse);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            listDataWrapper.setError(e);
+        }
+        return listDataWrapper;
     }
 }

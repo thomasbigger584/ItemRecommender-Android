@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".feature.entrypoint.EntrypointActivity"
             android:noHistory="true">
@@ -46,6 +47,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".feature.mypurchases.PurchaseListActivity" />
         </activity>
+        <activity
+            android:name=".feature.recommendation.RecommendationListActivity"
+            android:label="@string/title_activity_recommendation"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".feature.product.ProductListActivity"
             android:label="@string/title_product_list"

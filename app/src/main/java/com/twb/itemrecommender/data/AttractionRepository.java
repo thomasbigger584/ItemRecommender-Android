@@ -2,6 +2,7 @@ package com.twb.itemrecommender.data;
 
 import com.twb.itemrecommender.data.domain.Attraction;
 import com.twb.itemrecommender.data.domain.AttractionPurchase;
+import com.twb.itemrecommender.data.domain.Recommendation;
 import com.twb.itemrecommender.data.helper.DataWrapper;
 import com.twb.itemrecommender.data.retrofit.AttractionRetrofitController;
 import com.twb.itemrecommender.data.retrofit.dao.AttractionService;
@@ -50,6 +51,21 @@ public class AttractionRepository {
             for (Attraction attraction : attractionList) {
                 updateAttraction(attraction);
             }
+        }
+        return listDataWrapper;
+    }
+
+    public DataWrapper<List<Recommendation>> getRecommendations(LocationUtil.Location location, int page, int count) {
+        Map<String, Double> locationParams = new HashMap<>();
+        locationParams.put("latitude", location.getLatitude());
+        locationParams.put("longitude", location.getLongitude());
+
+//        not a pageable endpoint so dont pass params on
+
+        DataWrapper<List<Recommendation>> listDataWrapper =
+                attractionRetrofitController.getRecommendations(locationParams);
+        if (listDataWrapper.isPresent()) {
+            List<Recommendation> attractionList = listDataWrapper.getData();
         }
         return listDataWrapper;
     }

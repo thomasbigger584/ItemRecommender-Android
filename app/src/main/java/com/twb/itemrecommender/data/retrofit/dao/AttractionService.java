@@ -4,6 +4,7 @@ import androidx.annotation.Keep;
 
 import com.twb.itemrecommender.data.domain.Attraction;
 import com.twb.itemrecommender.data.domain.AttractionPurchase;
+import com.twb.itemrecommender.data.domain.Recommendation;
 import com.twb.itemrecommender.feature.util.LocationUtil;
 
 import java.util.List;
@@ -29,6 +30,9 @@ public interface AttractionService {
 
     @PUT("ext-attraction-purchase/take-action")
     Call<AttractionPurchase> takeAction(@Body TakeActionRequest registerInterestRequest);
+
+    @GET("ext-attraction/by-recommendation")
+    Call<List<Recommendation>> getRecommendations(@QueryMap(encoded = true) Map<String, Double> locationParams);
 
     @Keep
     class RegisterInterestRequest {

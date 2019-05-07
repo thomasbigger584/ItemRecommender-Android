@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.twb.itemrecommender.di.application.network.qualifiers.Unauthenticated;
 import com.twb.itemrecommender.feature.product.ProductListViewModel;
 import com.twb.itemrecommender.feature.product.detail.ProductDetailViewModel;
+import com.twb.itemrecommender.feature.recommendation.RecommendationListViewModel;
 
 import dagger.Component;
 import okhttp3.OkHttpClient;
@@ -25,6 +26,8 @@ public interface ApplicationComponent {
     void inject(ProductListViewModel productListViewModel);
 
     void inject(ProductDetailViewModel productDetailViewModel);
+
+    void inject(RecommendationListViewModel recommendationListViewModel);
 
     /*
      * AsyncTasks
